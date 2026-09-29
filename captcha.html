@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Калмыков Андрей Алексеевич">
+    <title>CAPTCHA и боты — Парсинг сайтов</title>
+    <link href="https://unpkg.com/cirrus-ui" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-fixed unselectable header-animated site-header" id="site-header">
+        <div class="header-brand">
+            <div class="nav-item no-hover"><a href="index.html"><h6 class="title">🌐 Парсинг &amp; Защита</h6></a></div>
+            <div class="nav-item nav-btn" id="header-btn"><span></span><span></span><span></span></div>
+        </div>
+        <div class="header-nav" id="header-menu" role="button">
+            <div class="nav-left">
+                <div class="nav-item"><a href="index.html">Главная</a></div>
+                <div class="nav-item"><a href="what-is-parsing.html">Что такое парсинг</a></div>
+                <div class="nav-item"><a href="tools.html">Инструменты</a></div>
+                <div class="nav-item"><a href="techniques.html">Техники парсинга</a></div>
+                <div class="nav-item"><a href="protection.html">Защита</a></div>
+                <div class="nav-item active"><a href="captcha.html">CAPTCHA</a></div>
+                <div class="nav-item"><a href="legal.html">Правовые аспекты</a></div>
+                <div class="nav-item"><a href="practice.html">Практикум</a></div>
+                <div class="nav-item"><a href="resources.html">Ресурсы</a></div>
+            </div>
+            <div class="nav-right"><div class="nav-item"><a href="about.html" class="btn btn-primary btn--sm">Об авторе</a></div></div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="content mx-auto">
+            <h1><span class="icon"><i class="fas fa-robot"></i></span> CAPTCHA и боты</h1>
+            <p>Тесты Тьюринга, фингерпринтинг браузеров и сервисы обхода</p>
+        </div>
+    </section>
+
+    <div class="content mx-auto py-3">
+        <div class="row">
+            <main class="col-9 col-12-md">
+    <article>
+        <header class="mb-4">
+            <h2>CAPTCHA: Главный барьер для ботов (И как его преодолеть)</h2>
+            <div class="divider"></div>
+        </header>
+
+        <section class="mb-4">
+            <p><strong>CAPTCHA</strong> (Completely Automated Public Turing test to tell Computers and Humans Apart — Полностью автоматизированный публичный тест Тьюринга для различения компьютеров и людей) — это последний, самый очевидный и самый раздражающий эшелон защиты от ботов. Основная идея в том, чтобы предложить пользователю задачу, которая легко решается человеком, но (теоретически) невыполнима или вычислительно невыгодна для машины.</p>
+
+            <h3 class="mt-4">Эволюция систем CAPTCHA</h3>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="card u-shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">1. Text-based CAPTCHA (Первое поколение)</h5>
+                            <p>Классические искаженные буквы и цифры на зашумленном фоне. Изначально это работало отлично, но с развитием компьютерного зрения (Computer Vision) и нейросетей, скрипты на базе Tesseract OCR (Optical Character Recognition) или кастомных сверточных сетей научились распознавать такие картинки с точностью 98-99% быстрее человека. Сегодня текстовая капча считается устаревшей и используется только на старых или слабо защищенных сайтах.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <div class="card u-shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">2. Image Recognition (reCAPTCHA v2 / hCaptcha)</h5>
+                            <p>Знаменитое задание: "Отметьте все светофоры / пешеходные переходы / пожарные гидранты". Создана компанией Google, которая попутно использовала труд миллионов пользователей интернета для разметки данных (Dataset Labeling) для обучения своих нейросетей автопилота Waymo. Помимо правильного выбора картинок, reCAPTCHA v2 активно анализирует движение мыши пользователя. Если курсор движется по идеальной математической прямой или телепортируется к кнопке (как это делает базовый Selenium), Google мгновенно понимает, что это бот, и не пропускает его даже при правильном ответе на картинку.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <div class="card u-shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">3. Невидимая капча (reCAPTCHA v3 / Cloudflare Turnstile)</h5>
+                            <p>Поведенческий анализ достиг такого уровня, что стало возможным отказаться от картинок вообще. reCAPTCHA v3 работает в фоне. Когда пользователь загружает страницу, скрипт анализирует его историю (наличие авторизации в сервисах Google), файлы cookie, параметры браузера, скорость чтения текста, движения мыши и клики.</p>
+                            <p>На основе этого массива данных сервер Google возвращает сайту оценку (Score) от <strong>0.0 (100% бот)</strong> до <strong>1.0 (100% человек)</strong>. Если сайт видит оценку ниже 0.5, он просто блокирует пользователя или просит пройти дополнительную проверку по SMS.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <div class="card u-shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">4. Игровые и логические капчи (GeeTest / Funcaptcha)</h5>
+                            <p>Используются на крупных криптобиржах (Binance) и в играх. Просят собрать пазл, повернуть животное в правильное положение или найти логическую связь (выбрать изображение, которое не подходит по смыслу). Они сложны для классического машинного зрения, так как требуют понимания физики или логики.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <h3>Как парсеры обходят CAPTCHA в 2026 году</h3>
+            
+            <blockquote class="pl-2" style="border-left: 4px solid var(--color-danger); background-color: #ffeef0; padding: 1.5rem;">
+                <strong>Правовая оговорка (Disclaimer):</strong> Преднамеренный обход CAPTCHA часто нарушает условия использования (ToS) веб-сайтов. Информация ниже предоставлена исключительно в образовательных целях для понимания возможностей автоматизации.
+            </blockquote>
+            
+            <p>Даже самые сложные капчи не являются абсолютной преградой для скрапинга. В индустрии существует отдельный рынок сервисов по обходу капчи (Anti-Captcha Services). Они работают по двум основным моделям:</p>
+
+            <ol>
+                <li>
+                    <strong>Human-based Solving (Ручной труд):</strong>
+                    <p>Сервисы типа 2Captcha, Anti-Captcha или RuCaptcha используют труд тысяч операторов (воркеров), обычно из стран с низким уровнем дохода. Как это работает:</p>
+                    <ul>
+                        <li>Ваш парсер натыкается на страницу с капчей.</li>
+                        <li>Парсер вырезает из HTML-кода параметр sitekey (уникальный ключ капчи на данном сайте) и URL страницы.</li>
+                        <li>Скрипт отправляет эти данные через API на сервис антикапчи.</li>
+                        <li>Живой человек (оператор) видит эту капчу у себя на экране, решает ее (кликает светофоры).</li>
+                        <li>Google выдает оператору токен ответа (response token).</li>
+                        <li>Сервис антикапчи передает этот токен вашему скрипту.</li>
+                        <li>Ваш скрипт подставляет токен в скрытую форму на сайте и нажимает "Отправить". Вы великолепны, капча пройдена за 1-2 цента.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>AI-based Solving (Решение нейросетями):</strong>
+                    <p>Сервисы нового поколения (CapSolver, XEvil) отказались от ручного труда. Они обучили свои собственные нейросети решать задачи hCaptcha, GeeTest и reCAPTCHA v2. Этот метод работает в 10 раз быстрее (доли секунды вместо 10-20 секунд ожидания человека) и часто дешевле.</p>
+                </li>
+            </ol>
+            
+            <h4 class="mt-3">Как избежать появления капчи в принципе?</h4>
+            <p>Хороший парсинг — это тот, который вообще не вызывает капчу. Лучшая стратегия — мимикрия под человека:</p>
+            <ul>
+                <li>Использование чистых резидентных прокси, которые не находятся в спам-базах (spamhaus).</li>
+                <li>Прогрев профилей (Cookie Farming). Бот сначала серфит популярные сайты, собирает cookie, смотрит YouTube, и только потом идет на целевой сайт. Это повышает Trust Score у систем вроде reCAPTCHA v3.</li>
+                <li>Использование Puppeteer Stealth plugin. Это специальное расширение для Node.js, которое удаляет из headless-браузера маркеры автоматизации (скрывает 
+avigator.webdriver, подменяет WebGL, имитирует правильные плагины браузера).</li>
+            </ul>
+        </section>
+    </article>
+</main>
+
+            <aside class="col-3 col-12-md">
+    <div class="sidebar-custom mb-3" style="position: sticky; top: 6rem;">
+        <h6><i class="fas fa-book-open"></i> Темы раздела</h6>
+        <div class="divider"></div>
+        <ul style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="what-is-parsing.html">Что такое парсинг?</a></li>
+            <li><a href="tools.html">Инструменты</a></li>
+            <li><a href="techniques.html">Техники парсинга</a></li>
+            <li><a href="protection.html">Защита от ботов</a></li>
+            <li><a href="captcha.html">Обход CAPTCHA</a></li>
+            <li><a href="legal.html">Правовые аспекты</a></li>
+            <li><a href="practice.html">Практикум</a></li>
+            <li><a href="resources.html">Ресурсы и ссылки</a></li>
+            <li><a href="about.html">О проекте</a></li>
+        </ul>
+    </div>
+</aside>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+    <div class="content mx-auto">
+        <div class="row">
+            <div class="col-6 col-12-md mb-2">
+                <p class="footer-title">О проекте</p>
+                <p>&copy; 2026 Калмыков Андрей Алексеевич<br>Студент 835 группы<br>Учебный проект по веб-разработке</p>
+            </div>
+            <div class="col-6 col-12-md mb-2" style="text-align: right;">
+                <p class="footer-title">Контакты</p>
+                <p><span class="icon"><i class="fas fa-envelope"></i></span> student@example.ru</p>
+                <p><span class="icon"><i class="fab fa-github"></i></span> <a href="#">GitHub Repository</a></p>
+            </div>
+        </div>
+        <div class="divider" style="border-color: rgba(255,255,255,0.2);"></div>
+        <p class="text-center text-sm" style="color: rgba(255,255,255,0.5);">Сделано с использованием Cirrus CSS.</p>
+    </div>
+</footer>
+    <script src="js/main.js" defer></script>
+</body>
+</html>

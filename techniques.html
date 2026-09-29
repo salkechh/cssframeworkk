@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Калмыков Андрей Алексеевич">
+    <title>Техники парсинга — Парсинг сайтов</title>
+    <link href="https://unpkg.com/cirrus-ui" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-fixed unselectable header-animated site-header" id="site-header">
+        <div class="header-brand">
+            <div class="nav-item no-hover"><a href="index.html"><h6 class="title">🌐 Парсинг &amp; Защита</h6></a></div>
+            <div class="nav-item nav-btn" id="header-btn"><span></span><span></span><span></span></div>
+        </div>
+        <div class="header-nav" id="header-menu" role="button">
+            <div class="nav-left">
+                <div class="nav-item"><a href="index.html">Главная</a></div>
+                <div class="nav-item"><a href="what-is-parsing.html">Что такое парсинг</a></div>
+                <div class="nav-item"><a href="tools.html">Инструменты</a></div>
+                <div class="nav-item active"><a href="techniques.html">Техники парсинга</a></div>
+                <div class="nav-item"><a href="protection.html">Защита</a></div>
+                <div class="nav-item"><a href="captcha.html">CAPTCHA</a></div>
+                <div class="nav-item"><a href="legal.html">Правовые аспекты</a></div>
+                <div class="nav-item"><a href="practice.html">Практикум</a></div>
+                <div class="nav-item"><a href="resources.html">Ресурсы</a></div>
+            </div>
+            <div class="nav-right"><div class="nav-item"><a href="about.html" class="btn btn-primary btn--sm">Об авторе</a></div></div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="content mx-auto">
+            <h1><span class="icon"><i class="fas fa-code-branch"></i></span> Техники парсинга</h1>
+            <p>От извлечения HTML до анализа API и обхода SPA</p>
+        </div>
+    </section>
+
+    <div class="content mx-auto py-3">
+        <div class="row">
+            <main class="col-9 col-12-md">
+    <article>
+        <header class="mb-4">
+            <h2>Продвинутые техники и стратегии веб-парсинга</h2>
+            <div class="divider"></div>
+        </header>
+
+        <section class="mb-4">
+            <p>Написание базового парсера, отправляющего GET-запрос и ищущего тег в HTML — это лишь 10% работы. Основная сложность в современном скрапинге (по состоянию на 2026 год) заключается в том, чтобы сделать этот процесс стабильным, масштабируемым и незаметным для антифрод-систем. Чтобы парсинг был эффективным и не приводил к мгновенной блокировке IP-адреса, необходимо применять сложные многоуровневые стратегии обхода страниц и маскировки.</p>
+
+            <h3 class="mt-4">1. Маскировка на уровне HTTP-запросов</h3>
+            <div class="row">
+                <div class="col-6 col-12-md">
+                    <div class="card u-shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Ротация User-Agent и Заголовков</h5>
+                            <p>Первая линия защиты любого сервера — анализ заголовков HTTP-запроса. Заголовок <code>User-Agent</code> сообщает серверу, какой браузер делает запрос. Если он пустой или содержит стандартное значение библиотеки (например, <code>python-requests/2.31.0</code> или <code>Scrapy/2.11</code>), вас заблокируют моментально. Необходимо использовать массив реальных юзер-агентов от последних версий Chrome, Firefox и Safari, случайным образом меняя их при каждом запросе.</p>
+                            <p>Более продвинутые системы анализируют порядок следования заголовков, наличие специфичных для браузера полей (<code>Sec-Ch-Ua</code>, <code>Accept-Language</code>). Скрапер должен отправлять заголовки в точности так, как это делает реальный браузер (Browser Header Impersonation).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-12-md">
+                    <div class="card u-shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Использование пулов прокси (Proxy Rotation)</h5>
+                            <p>При отправке сотен запросов в минуту с одного IP-адреса, любая система безопасности, от Nginx Rate Limiting до Cloudflare, выдаст бан. Использование пула качественных прокси позволяет распределить запросы так, будто они исходят от тысяч реальных пользователей из разных стран.</p>
+                            <p>Дешевые серверные (Datacenter) прокси часто блокируются целыми подсетями. Для парсинга сложных сайтов (Amazon, Instagram) применяются <strong>резидентные прокси (Residential Proxies)</strong> — это IP-адреса реальных домашних компьютеров и смартфонов, предоставляемые провайдерами ISP. Их блокировка проблематична, так как вместе со скрапером пострадают реальные абоненты.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <h3>2. Парсинг через скрытые API (XHR/Fetch Reverse Engineering)</h3>
+            <p>Многие современные сайты (SPA-приложения на React, Vue) не вшивают данные в HTML-код. Вместо этого, при загрузке страницы, JavaScript-код отправляет фоновые запросы (XHR или Fetch) к внутренним API серверам в формате JSON или GraphQL, и уже после этого отрисовывает карточки товаров на экране.</p>
+            <p>Вместо того, чтобы поднимать тяжелый Selenium для рендеринга JS или пытаться вырезать JSON из тегов <code>&lt;script&gt;</code> с помощью регулярных выражений, опытные инженеры занимаются реверс-инжинирингом API:</p>
+            
+            <ol>
+                <li>Открыть вкладку <strong>Network (Сеть)</strong> в инструментах разработчика браузера (F12).</li>
+                <li>Перезагрузить страницу и включить фильтр по <strong>XHR / Fetch</strong>.</li>
+                <li>Найти запрос, который в ответе (Preview/Response) возвращает структурированный JSON с нужными данными (ценами, отзывами).</li>
+                <li>Скопировать URL этого запроса, его метод (GET/POST) и необходимые заголовки авторизации (например, Bearer токен).</li>
+                <li>Воспроизвести этот запрос в своем Python-коде.</li>
+            </ol>
+            
+            <figure class="mb-3 text-center mt-3">
+                <img src="img/network-tab.png" 
+                     srcset="img/network-tab-400.png 400w, img/network-tab-800.png 800w" 
+                     sizes="(max-width: 768px) 100vw, 800px" 
+                     alt="Вкладка Network в Chrome DevTools с фильтрацией по XHR, показывающая JSON ответ сервера" 
+                     title="Анализ сетевых запросов и поиск скрытых API" 
+                     class="u-round-xs u-shadow-sm" 
+                     style="max-width: 100%; height: auto;">
+                <figcaption class="text-sm">Поиск скрытых API через Chrome DevTools. Обратите внимание на ответ сервера в формате JSON справа — парсить его гораздо проще, чем HTML-код.</figcaption>
+            </figure>
+            
+            <blockquote class="pl-2" style="border-left: 4px solid var(--color-primary); background-color: var(--color-light-bg); padding: 1.5rem;">
+                <strong>Преимущество подхода:</strong> Вы получаете идеально структурированные данные (JSON), вам не нужно писать сложные XPath-селекторы, которые сломаются при смене дизайна сайта, а скорость парсинга возрастает в десятки раз.
+            </blockquote>
+        </section>
+
+        <section class="mb-4">
+            <h3>3. TLS Fingerprinting (Отпечатки SSL/TLS)</h3>
+            <p>Даже если вы используете резидентные прокси и скопировали все заголовки из Chrome, сервер всё равно может понять, что запрос отправляет скрипт на Python. Как? Через параметры установления защищенного соединения (TLS Handshake).</p>
+            <p>Библиотеки вроде <code>requests</code> или <code>urllib</code> используют системный OpenSSL, который отправляет наборы шифров (Cipher Suites) и расширений (Extensions) в определенном порядке. Этот порядок (отпечаток) называется JA3 fingerprint. У Python он один, у Chrome — совершенно другой, у Safari на iPhone — третий. Антибот-системы сверяют User-Agent (где вы написали "Я Хром") с реальным TLS-отпечатком (который говорит "Я скрипт на Python"). При несовпадении выдается бан.</p>
+            <p>Для обхода этой защиты применяются специализированные HTTP-клиенты на Go или Rust (например, <code>curl-impersonate</code> или Python-обертки <code>tls-client</code>, <code>curl_cffi</code>), которые умеют подделывать структуру TLS пакетов на низком уровне, идеально имитируя любой браузер.</p>
+        </section>
+    </article>
+</main>
+
+            <aside class="col-3 col-12-md">
+    <div class="sidebar-custom mb-3" style="position: sticky; top: 6rem;">
+        <h6><i class="fas fa-book-open"></i> Темы раздела</h6>
+        <div class="divider"></div>
+        <ul style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="what-is-parsing.html">Что такое парсинг?</a></li>
+            <li><a href="tools.html">Инструменты</a></li>
+            <li><a href="techniques.html">Техники парсинга</a></li>
+            <li><a href="protection.html">Защита от ботов</a></li>
+            <li><a href="captcha.html">Обход CAPTCHA</a></li>
+            <li><a href="legal.html">Правовые аспекты</a></li>
+            <li><a href="practice.html">Практикум</a></li>
+            <li><a href="resources.html">Ресурсы и ссылки</a></li>
+            <li><a href="about.html">О проекте</a></li>
+        </ul>
+    </div>
+</aside>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+    <div class="content mx-auto">
+        <div class="row">
+            <div class="col-6 col-12-md mb-2">
+                <p class="footer-title">О проекте</p>
+                <p>&copy; 2026 Калмыков Андрей Алексеевич<br>Студент 835 группы<br>Учебный проект по веб-разработке</p>
+            </div>
+            <div class="col-6 col-12-md mb-2" style="text-align: right;">
+                <p class="footer-title">Контакты</p>
+                <p><span class="icon"><i class="fas fa-envelope"></i></span> student@example.ru</p>
+                <p><span class="icon"><i class="fab fa-github"></i></span> <a href="#">GitHub Repository</a></p>
+            </div>
+        </div>
+        <div class="divider" style="border-color: rgba(255,255,255,0.2);"></div>
+        <p class="text-center text-sm" style="color: rgba(255,255,255,0.5);">Сделано с использованием Cirrus CSS.</p>
+    </div>
+</footer>
+    <script src="js/main.js" defer></script>
+</body>
+</html>

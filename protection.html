@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Калмыков Андрей Алексеевич">
+    <title>Защита от парсинга — Парсинг сайтов</title>
+    <link href="https://unpkg.com/cirrus-ui" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-fixed unselectable header-animated site-header" id="site-header">
+        <div class="header-brand">
+            <div class="nav-item no-hover"><a href="index.html"><h6 class="title">🌐 Парсинг &amp; Защита</h6></a></div>
+            <div class="nav-item nav-btn" id="header-btn"><span></span><span></span><span></span></div>
+        </div>
+        <div class="header-nav" id="header-menu" role="button">
+            <div class="nav-left">
+                <div class="nav-item"><a href="index.html">Главная</a></div>
+                <div class="nav-item"><a href="what-is-parsing.html">Что такое парсинг</a></div>
+                <div class="nav-item"><a href="tools.html">Инструменты</a></div>
+                <div class="nav-item"><a href="techniques.html">Техники парсинга</a></div>
+                <div class="nav-item active"><a href="protection.html">Защита</a></div>
+                <div class="nav-item"><a href="captcha.html">CAPTCHA</a></div>
+                <div class="nav-item"><a href="legal.html">Правовые аспекты</a></div>
+                <div class="nav-item"><a href="practice.html">Практикум</a></div>
+                <div class="nav-item"><a href="resources.html">Ресурсы</a></div>
+            </div>
+            <div class="nav-right"><div class="nav-item"><a href="about.html" class="btn btn-primary btn--sm">Об авторе</a></div></div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="content mx-auto">
+            <h1><span class="icon"><i class="fas fa-shield-alt"></i></span> Защита от парсинга</h1>
+            <p>Методы противодействия ботам и автоматическому сбору данных</p>
+        </div>
+    </section>
+
+    <div class="content mx-auto py-3">
+        <div class="row">
+            <main class="col-9 col-12-md">
+    <article>
+        <header class="mb-4">
+            <h2>Системы защиты от парсинга (Anti-Scraping / WAF)</h2>
+            <div class="divider"></div>
+        </header>
+
+        <section class="mb-4">
+            <p>Противостояние парсеров и систем защиты — это классическая игра в кошки-мышки (или гонка вооружений). Сайты вкладывают миллионы долларов в защиту своих данных по разным причинам: снижение инфраструктурной нагрузки на серверы от тысяч ботов, защита уникального контента (статей, цен, каталогов) от конкурентов, предотвращение скалпинга билетов и кражи аккаунтов.</p>
+            <p>Для этих целей используются WAF (Web Application Firewall) и специализированные Anti-Bot сервисы, которые анализируют трафик в реальном времени.</p>
+            
+            <h3 class="mt-4">Ведущие игроки рынка Anti-Bot защиты</h3>
+            <ul>
+                <li><strong>Cloudflare Bot Management:</strong> Самая популярная система в мире. Анализирует сотни параметров: от IP-репутации базы данных до TLS Fingerprinting и выполнения невидимых JS-задач (Proof-of-Work) в браузере клиента. Часто выдает экран "Checking your browser before accessing..." или капчу Cloudflare Turnstile.</li>
+                <li><strong>Datadome:</strong> Очень агрессивная французская система защиты. Делает сильный упор на поведенческую биометрию (скорость скроллинга, траекторию движения мыши). Часто встречается на европейских сайтах и в E-commerce.</li>
+                <li><strong>PerimeterX (сейчас HUMAN Security):</strong> Глубокий анализ среды выполнения JavaScript. Проверяет наличие объектов Selenium в глобальной области видимости window, проверяет, не подменены ли нативные функции браузера.</li>
+                <li><strong>Akamai Bot Manager:</strong> Использует колоссальную глобальную базу угроз (Threat Intelligence) для мгновенной блокировки подозрительных IP-адресов на уровне магистральных провайдеров.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h3>Методы защиты: Как сайты определяют парсер?</h3>
+            <p>Современные защиты работают на нескольких уровнях сетевой модели OSI.</p>
+            
+            <h4 class="mt-3">1. Сетевой уровень (IP и HTTP)</h4>
+            <ol>
+                <li><strong>Rate Limiting (Ограничение частоты):</strong> Базовая защита. Если с одного IP-адреса приходит больше 50 запросов в минуту, сервер начинает возвращать HTTP статус <code>429 Too Many Requests</code>. Решается использованием прокси.</li>
+                <li><strong>Блокировка дата-центров (ASN Blocking):</strong> Защита проверяет принадлежность IP-адреса к автономной системе (ASN). Если ваш IP принадлежит Amazon AWS, DigitalOcean, Hetzner или Google Cloud, вас заблокируют превентивно, так как реальные люди не сидят в интернете с серверов хостинг-провайдеров. Решается резидентными мобильными прокси.</li>
+            </ol>
+
+            <h4 class="mt-3">2. Уровень контента и DOM (Honeypots и Обфускация)</h4>
+            <ol>
+                <li><strong>Honeypots (Приманки):</strong> Разработчики внедряют в HTML-код скрытые ссылки (например, скрытые через CSS <code>display: none;</code> или сдвинутые за пределы экрана <code>left: -9999px;</code>). Человек их не видит и никогда на них не нажмет. Скрапер, который тупо собирает все атрибуты <code>href</code> и переходит по ним, попадает в ловушку. Как только фиксируется переход по honeypot-ссылке, IP навсегда отправляется в черный список.</li>
+                <li><strong>Динамическая обфускация классов:</strong> Классический парсер ищет цену по классу, например <code>soup.find('span', class_='product-price')</code>. На современных сайтах (использующих React/Next.js/Tailwind) классы генерируются случайно при каждой сборке или загрузке страницы: <code>class="css-1xw3a3p e1vjf2p0"</code>. Завязываться на классы становится невозможно. Приходится искать данные по иерархии DOM, окружающему тексту или использовать XPath.</li>
+                <li><strong>Инжект фальшивых данных:</strong> Сайт случайным образом подмешивает в HTML невидимые блоки текста. Парсер забирает цену "10 000 руб. <span>5 000 руб.</span>", склеивает их и получает мусор.</li>
+            </ol>
+            
+            <h4 class="mt-3">3. Уровень исполнения (JavaScript Challenge)</h4>
+            <p>Когда вы обращаетесь к сайту за Cloudflare, вам часто не отдают HTML сразу. Вам возвращают пустую страницу с обфусцированным куском JavaScript. Этот JS-код должен выполниться в браузере, решить криптографическую задачу (Proof-of-Work) или вычислить хэш на основе параметров вашей видеокарты (WebGL Canvas Fingerprinting). Полученный результат скрипт отправляет обратно на сервер. Если результат правильный — выдается Cookie авторизации (cf_clearance), и только с ней вас пускают на реальный сайт. Библиотека <code>requests</code> не умеет выполнять JS, поэтому она никогда не пройдет эту проверку.</p>
+        </section>
+    </article>
+</main>
+
+            <aside class="col-3 col-12-md">
+    <div class="sidebar-custom mb-3" style="position: sticky; top: 6rem;">
+        <h6><i class="fas fa-book-open"></i> Темы раздела</h6>
+        <div class="divider"></div>
+        <ul style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="what-is-parsing.html">Что такое парсинг?</a></li>
+            <li><a href="tools.html">Инструменты</a></li>
+            <li><a href="techniques.html">Техники парсинга</a></li>
+            <li><a href="protection.html">Защита от ботов</a></li>
+            <li><a href="captcha.html">Обход CAPTCHA</a></li>
+            <li><a href="legal.html">Правовые аспекты</a></li>
+            <li><a href="practice.html">Практикум</a></li>
+            <li><a href="resources.html">Ресурсы и ссылки</a></li>
+            <li><a href="about.html">О проекте</a></li>
+        </ul>
+    </div>
+</aside>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+    <div class="content mx-auto">
+        <div class="row">
+            <div class="col-6 col-12-md mb-2">
+                <p class="footer-title">О проекте</p>
+                <p>&copy; 2026 Калмыков Андрей Алексеевич<br>Студент 835 группы<br>Учебный проект по веб-разработке</p>
+            </div>
+            <div class="col-6 col-12-md mb-2" style="text-align: right;">
+                <p class="footer-title">Контакты</p>
+                <p><span class="icon"><i class="fas fa-envelope"></i></span> student@example.ru</p>
+                <p><span class="icon"><i class="fab fa-github"></i></span> <a href="#">GitHub Repository</a></p>
+            </div>
+        </div>
+        <div class="divider" style="border-color: rgba(255,255,255,0.2);"></div>
+        <p class="text-center text-sm" style="color: rgba(255,255,255,0.5);">Сделано с использованием Cirrus CSS.</p>
+    </div>
+</footer>
+    <script src="js/main.js" defer></script>
+</body>
+</html>

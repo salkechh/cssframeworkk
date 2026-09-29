@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Калмыков Андрей Алексеевич">
+    <title>Инструменты парсинга — Парсинг сайтов</title>
+    <link href="https://unpkg.com/cirrus-ui" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-fixed unselectable header-animated site-header" id="site-header">
+        <div class="header-brand">
+            <div class="nav-item no-hover"><a href="index.html"><h6 class="title">🌐 Парсинг &amp; Защита</h6></a></div>
+            <div class="nav-item nav-btn" id="header-btn"><span></span><span></span><span></span></div>
+        </div>
+        <div class="header-nav" id="header-menu" role="button">
+            <div class="nav-left">
+                <div class="nav-item"><a href="index.html">Главная</a></div>
+                <div class="nav-item"><a href="what-is-parsing.html">Что такое парсинг</a></div>
+                <div class="nav-item active"><a href="tools.html">Инструменты</a></div>
+                <div class="nav-item"><a href="techniques.html">Техники парсинга</a></div>
+                <div class="nav-item"><a href="protection.html">Защита</a></div>
+                <div class="nav-item"><a href="captcha.html">CAPTCHA</a></div>
+                <div class="nav-item"><a href="legal.html">Правовые аспекты</a></div>
+                <div class="nav-item"><a href="practice.html">Практикум</a></div>
+                <div class="nav-item"><a href="resources.html">Ресурсы</a></div>
+            </div>
+            <div class="nav-right"><div class="nav-item"><a href="about.html" class="btn btn-primary btn--sm">Об авторе</a></div></div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="content mx-auto">
+            <h1><span class="icon"><i class="fas fa-tools"></i></span> Инструменты парсинга</h1>
+            <p>Библиотеки, фреймворки и headless-браузеры</p>
+        </div>
+    </section>
+
+    <div class="content mx-auto py-3">
+        <div class="row">
+            <main class="col-9 col-12-md">
+    <article>
+        <header class="mb-4">
+            <h2>Инструменты и библиотеки для веб-парсинга: Глубокий анализ</h2>
+            <div class="divider"></div>
+        </header>
+        
+        <section class="mb-4">
+            <p>Успех любого проекта по сбору данных на 80% зависит от правильного выбора инструмента на старте. Ландшафт технологий парсинга огромен: от простейших HTTP-клиентов до распределенных облачных кластеров headless-браузеров. В зависимости от сложности целевого сайта (наличие динамического рендеринга SPA, сложной обфускации, систем защиты от ботов типа Cloudflare), разработчик выбирает соответствующий стек.</p>
+            
+            <h3 class="mt-4">Подробное сравнение популярных решений (Стек Python и Node.js)</h3>
+            <div class="table-wrapper u-shadow-sm u-round-xs mb-4">
+                <table class="table bordered striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Инструмент / Фреймворк</th>
+                            <th scope="col">Язык программирования</th>
+                            <th scope="col">Поддержка исполнения JS</th>
+                            <th scope="col">Производительность (Скорость)</th>
+                            <th scope="col">Сложность освоения</th>
+                            <th scope="col">Основное назначение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Beautiful Soup 4 (BS4)</strong></td>
+                            <td>Python</td>
+                            <td><span class="text-danger"><i class="fas fa-times"></i> Нет</span> (Только парсинг статики)</td>
+                            <td>Очень высокая (в связке с lxml)</td>
+                            <td>Низкая (идеально для новичков)</td>
+                            <td>Парсинг простых сайтов без React/Vue, обучение, разовые скрипты.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scrapy</strong></td>
+                            <td>Python</td>
+                            <td><span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Только через плагины (Splash/Playwright)</span></td>
+                            <td>Сверхвысокая (полная асинхронность на Twisted)</td>
+                            <td>Высокая (требует понимания архитектуры ООП)</td>
+                            <td>Масштабный промышленный краулинг, сбор миллионов страниц, e-commerce.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Playwright (by Microsoft)</strong></td>
+                            <td>Node.js / Python / C# / Java</td>
+                            <td><span class="text-success"><i class="fas fa-check"></i> Да</span> (Полноценный Headless браузер)</td>
+                            <td>Низкая (потребляет много CPU и RAM)</td>
+                            <td>Средняя (удобное современное API)</td>
+                            <td>Парсинг сложных SPA-приложений, обход Cloudflare, E2E тестирование.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Puppeteer (by Google)</strong></td>
+                            <td>Node.js</td>
+                            <td><span class="text-success"><i class="fas fa-check"></i> Да</span> (Управляет Chrome/Chromium)</td>
+                            <td>Низкая</td>
+                            <td>Средняя</td>
+                            <td>Генерация PDF, создание скриншотов, парсинг сайтов, требующих рендеринга.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Selenium WebDriver</strong></td>
+                            <td>Python / Java / C# / Ruby / JS</td>
+                            <td><span class="text-success"><i class="fas fa-check"></i> Да</span> (Поддерживает все браузеры)</td>
+                            <td>Крайне низкая (самый тяжелый инструмент)</td>
+                            <td>Средняя</td>
+                            <td>Исторический стандарт. Имитация сложного поведения человека (Drag&Drop, свайпы).</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="text-sm text-center">Таблица 1: Комплексная сравнительная характеристика популярных инструментов для скрапинга и автоматизации по состоянию на 2026 год.</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <h3>Классификация подходов: Статика vs Динамика</h3>
+            
+            <h4 class="mt-3">1. Статический парсинг (HTTP-клиенты + HTML-парсеры)</h4>
+            <p>Это самый быстрый и ресурсоэффективный метод. Скрипт использует библиотеку вроде <code>requests</code> (Python) или <code>axios</code> (Node.js) для отправки прямого HTTP-запроса на сервер. В ответ приходит сырой HTML-код. Затем в дело вступает парсер (например, BeautifulSoup), который строит дерево DOM и ищет данные.</p>
+            <ul>
+                <li><strong>Плюсы:</strong> Максимальная скорость. Скрипт может скачивать сотни страниц в секунду на одном ядре процессора. Минимальное потребление оперативной памяти.</li>
+                <li><strong>Минусы:</strong> Если данные на сайте генерируются асинхронно через JavaScript (AJAX, React, Angular) <em>после</em> загрузки страницы, статический парсер увидит только пустые теги (например, <code>&lt;div id="root"&gt;&lt;/div&gt;</code>).</li>
+            </ul>
+
+            <h4 class="mt-3">2. Динамический парсинг (Headless браузеры)</h4>
+            <p>Когда целевой сайт построен как Single Page Application (SPA) или сильно зависит от скриптов, классический подход не работает. В таких случаях запускается "безголовый" (headless) браузер — полноценный Google Chrome или Firefox, но без графического интерфейса. Скрипт управляет этим браузером (через Playwright или Puppeteer), приказывая ему открыть страницу, дождаться выполнения всех JS-скриптов, подождать появления нужного элемента на экране, и только потом извлекать данные.</p>
+            <ul>
+                <li><strong>Плюсы:</strong> Парсит абсолютно всё, что видит человек. Легко обходит базовые защиты, имитирует скроллинг, клики, ввод текста.</li>
+                <li><strong>Минусы:</strong> Крайне медленно. Один процесс Chrome может потреблять от 100 до 500 МБ оперативной памяти. Запуск 10 параллельных потоков потребует мощного сервера.</li>
+            </ul>
+        </section>
+        
+        <section class="mb-4">
+            <h3>Фреймворки уровня Enterprise: Почему Scrapy?</h3>
+            <p>Для проектов, где нужно спарсить не 100 страниц, а 1 000 000 (например, весь каталог AliExpress), ни BeautifulSoup, ни Selenium не подходят. В индустрии стандартом де-факто является <strong>Scrapy</strong>.</p>
+            <p>Scrapy — это не просто библиотека, а полноценный фреймворк, построенный на асинхронной архитектуре Twisted. Он предоставляет из коробки:</p>
+            <ol>
+                <li>Управление пулом запросов и настройку конкурентности (одновременная отправка тысяч запросов).</li>
+                <li>Встроенную поддержку пайплайнов (Item Pipelines) для автоматической очистки данных и сохранения их напрямую в базу данных (PostgreSQL, MongoDB).</li>
+                <li>Автоматическую обработку ретраев (повторных попыток при ошибке сети или бане 503).</li>
+                <li>Поддержку экспорта данных в JSON, CSV, XML "из коробки" одной командой.</li>
+            </ol>
+        </section>
+    </article>
+</main>
+
+            <aside class="col-3 col-12-md">
+    <div class="sidebar-custom mb-3" style="position: sticky; top: 6rem;">
+        <h6><i class="fas fa-book-open"></i> Темы раздела</h6>
+        <div class="divider"></div>
+        <ul style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="what-is-parsing.html">Что такое парсинг?</a></li>
+            <li><a href="tools.html">Инструменты</a></li>
+            <li><a href="techniques.html">Техники парсинга</a></li>
+            <li><a href="protection.html">Защита от ботов</a></li>
+            <li><a href="captcha.html">Обход CAPTCHA</a></li>
+            <li><a href="legal.html">Правовые аспекты</a></li>
+            <li><a href="practice.html">Практикум</a></li>
+            <li><a href="resources.html">Ресурсы и ссылки</a></li>
+            <li><a href="about.html">О проекте</a></li>
+        </ul>
+    </div>
+</aside>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+    <div class="content mx-auto">
+        <div class="row">
+            <div class="col-6 col-12-md mb-2">
+                <p class="footer-title">О проекте</p>
+                <p>&copy; 2026 Калмыков Андрей Алексеевич<br>Студент 835 группы<br>Учебный проект по веб-разработке</p>
+            </div>
+            <div class="col-6 col-12-md mb-2" style="text-align: right;">
+                <p class="footer-title">Контакты</p>
+                <p><span class="icon"><i class="fas fa-envelope"></i></span> student@example.ru</p>
+                <p><span class="icon"><i class="fab fa-github"></i></span> <a href="#">GitHub Repository</a></p>
+            </div>
+        </div>
+        <div class="divider" style="border-color: rgba(255,255,255,0.2);"></div>
+        <p class="text-center text-sm" style="color: rgba(255,255,255,0.5);">Сделано с использованием Cirrus CSS.</p>
+    </div>
+</footer>
+    <script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Калмыков Андрей Алексеевич">
+    <title>Парсинг сайтов. Защита от парсинга — Главная</title>
+    <link href="https://unpkg.com/cirrus-ui" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-fixed unselectable header-animated site-header" id="site-header">
+        <div class="header-brand">
+            <div class="nav-item no-hover"><a href="index.html"><h6 class="title">🌐 Парсинг &amp; Защита</h6></a></div>
+            <div class="nav-item nav-btn" id="header-btn"><span></span><span></span><span></span></div>
+        </div>
+        <div class="header-nav" id="header-menu" role="button">
+            <div class="nav-left">
+                <div class="nav-item active"><a href="index.html">Главная</a></div>
+                <div class="nav-item"><a href="what-is-parsing.html">Что такое парсинг</a></div>
+                <div class="nav-item"><a href="tools.html">Инструменты</a></div>
+                <div class="nav-item"><a href="techniques.html">Техники парсинга</a></div>
+                <div class="nav-item"><a href="protection.html">Защита</a></div>
+                <div class="nav-item"><a href="captcha.html">CAPTCHA</a></div>
+                <div class="nav-item"><a href="legal.html">Правовые аспекты</a></div>
+                <div class="nav-item"><a href="practice.html">Практикум</a></div>
+                <div class="nav-item"><a href="resources.html">Ресурсы</a></div>
+            </div>
+            <div class="nav-right"><div class="nav-item"><a href="about.html" class="btn btn-primary btn--sm">Об авторе</a></div></div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="content">
+            <h1>Парсинг сайтов и защита от него</h1>
+            <p class="lead">Комплексный учебный ресурс о технологиях извлечения данных из веб-сайтов, инструментах для автоматического сбора информации и методах противодействия ботам.</p>
+            <a href="what-is-parsing.html" class="btn btn-light">Начать изучение</a>
+        </div>
+    </section>
+
+    <div class="content mx-auto py-3">
+        <div class="row">
+            <main class="col-9 col-12-md">
+    <article>
+        <section class="mb-4">
+            <h2>Добро пожаловать в мир Data Mining</h2>
+            <div class="divider"></div>
+            <p><strong>Веб-парсинг (Web Scraping)</strong> — это не просто скрипт, скачивающий HTML-код. Это фундаментальная технология современной цифровой экономики. От агрегаторов авиабилетов и поисковых систем до алгоритмов машинного обучения — все они полагаются на непрерывный автоматизированный сбор данных.</p>
+            <p>На этом ресурсе мы собрали исчерпывающую информацию о том, как устроены парсеры, какие инструменты используются в индустрии, и как сайты пытаются защититься от автоматизации.</p>
+        </section>
+        
+        <section class="mb-4">
+            <h2>Видео: Введение в технологии парсинга</h2>
+            <div class="divider"></div>
+            <p>Короткий обзорный ролик о том, как работает автоматический сбор информации в интернете:</p>
+            <div class="video-container u-round-xs u-shadow-lg mb-2">
+                <iframe src="https://rutube.ru/play/embed/46ef2ace239e41f2ca0e2f1bf94aa2f1/" allow="clipboard-write; autoplay" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <h2>Навигация по курсу</h2>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col-6 col-12-md mb-2">
+                    <div class="card u-shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-book"></i> Базовые концепции</h5>
+                            <p class="text-sm">Разница между кроулингом и скрапингом. Белые и черные методы.</p>
+                            <a href="what-is-parsing.html" class="text-primary text-sm font-bold">Читать теорию &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-12-md mb-2">
+                    <div class="card u-shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-cogs"></i> Инструментарий</h5>
+                            <p class="text-sm">Python, Node.js, HTTP-клиенты и Headless браузеры.</p>
+                            <a href="tools.html" class="text-primary text-sm font-bold">Изучить инструменты &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-12-md mb-2">
+                    <div class="card u-shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt"></i> Защита (WAF)</h5>
+                            <p class="text-sm">Cloudflare, поведенческий анализ и Honeypots.</p>
+                            <a href="protection.html" class="text-primary text-sm font-bold">О системах защиты &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-12-md mb-2">
+                    <div class="card u-shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-robot"></i> CAPTCHA</h5>
+                            <p class="text-sm">Виды капчи и современные методы ее автоматического обхода.</p>
+                            <a href="captcha.html" class="text-primary text-sm font-bold">Узнать про обход капчи &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <h2>Популярные инструменты разработчика</h2>
+            <div class="divider"></div>
+            <p>Краткая сводка самых востребованных библиотек на рынке по состоянию на 2026 год.</p>
+            <div class="table-wrapper">
+                <table class="table bordered striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Инструмент</th>
+                            <th scope="col">Язык</th>
+                            <th scope="col">Рендеринг JS</th>
+                            <th scope="col">Сложность</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Beautiful Soup</td><td>Python</td><td><span class="text-danger">Нет</span></td><td>Низкая</td></tr>
+                        <tr><td>Scrapy</td><td>Python</td><td><span class="text-warning">Плагины</span></td><td>Высокая</td></tr>
+                        <tr><td>Selenium</td><td>Python/JS</td><td><span class="text-success">Да</span></td><td>Средняя</td></tr>
+                        <tr><td>Playwright</td><td>Node.js</td><td><span class="text-success">Да</span></td><td>Средняя</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </article>
+</main>
+
+            <aside class="col-3 col-12-md">
+    <div class="sidebar-custom mb-3" style="position: sticky; top: 6rem;">
+        <h6><i class="fas fa-book-open"></i> Темы раздела</h6>
+        <div class="divider"></div>
+        <ul style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="what-is-parsing.html">Что такое парсинг?</a></li>
+            <li><a href="tools.html">Инструменты</a></li>
+            <li><a href="techniques.html">Техники парсинга</a></li>
+            <li><a href="protection.html">Защита от ботов</a></li>
+            <li><a href="captcha.html">Обход CAPTCHA</a></li>
+            <li><a href="legal.html">Правовые аспекты</a></li>
+            <li><a href="practice.html">Практикум</a></li>
+            <li><a href="resources.html">Ресурсы и ссылки</a></li>
+            <li><a href="about.html">О проекте</a></li>
+        </ul>
+    </div>
+</aside>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+    <div class="content mx-auto">
+        <div class="row">
+            <div class="col-6 col-12-md mb-2">
+                <p class="footer-title">О проекте</p>
+                <p>&copy; 2026 Калмыков Андрей Алексеевич<br>Студент 835 группы<br>Учебный проект по веб-разработке</p>
+            </div>
+            <div class="col-6 col-12-md mb-2" style="text-align: right;">
+                <p class="footer-title">Контакты</p>
+                <p><span class="icon"><i class="fas fa-envelope"></i></span> student@example.ru</p>
+                <p><span class="icon"><i class="fab fa-github"></i></span> <a href="#">GitHub Repository</a></p>
+            </div>
+        </div>
+        <div class="divider" style="border-color: rgba(255,255,255,0.2);"></div>
+        <p class="text-center text-sm" style="color: rgba(255,255,255,0.5);">Сделано с использованием Cirrus CSS.</p>
+    </div>
+</footer>
+    <script src="js/main.js" defer></script>
+</body>
+</html>

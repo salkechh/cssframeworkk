@@ -1,0 +1,1 @@
+﻿document.addEventListener('DOMContentLoaded', () =>{ const btn = document.getElementById('header-btn'), menu = document.getElementById('header-menu');if(btn && menu) btn.addEventListener('click', () =>{ menu.classList.toggle('active');btn.classList.toggle('active');});});
